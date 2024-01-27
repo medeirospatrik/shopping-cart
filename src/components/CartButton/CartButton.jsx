@@ -18,7 +18,7 @@ export default function CartButton() {
       onClick={() => setIsCartVisible(!isCartVisible)}
     >
       <AiOutlineShoppingCart/>
-      {cartItems.length > 0 && <span className="cart-status">{cartItems.length}</span>}
+      {cartItems.length > 0 ? <span className="cart-status">{cartItems.length}</span> : ''}
     </button>
   );
 }
