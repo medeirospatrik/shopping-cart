@@ -24,7 +24,7 @@ export default function Products() {
       console.log(response);
     });
 
-    setCartItems(getItemLocalStorage('cart'));
+    setCartItems(getItemLocalStorage('cart') || []);
   }, []);
 
   return (
