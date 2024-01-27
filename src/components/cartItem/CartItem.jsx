@@ -5,6 +5,7 @@ import { BsCartDashFill } from 'react-icons/bs';
 import './CartItem.css';
 import formatCurrency from '../../utils/formatCurrency';
 import AppContext from '../../context/AppContext';
+import { setItemLocalStorage } from '../../utils/setLocalStorage';
 
 
 export default function CartItem({ data }) {
@@ -22,6 +23,7 @@ export default function CartItem({ data }) {
       const updatedItems = [...cartItems];
       updatedItems.splice(index, 1);
       setCartItems(updatedItems);
+      setItemLocalStorage('cart', updatedItems);
     }
   };
 
