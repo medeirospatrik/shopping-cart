@@ -5,6 +5,7 @@ import './ProductCard.css';
 import { BsFillCartPlusFill } from 'react-icons/bs';
 import formatCurrency from '../../utils/formatCurrency';
 import AppContext from '../../context/AppContext';
+import { setItemLocalStorage } from '../../utils/setLocalStorage';
 
 
 export default function ProductCard({ data }) {
@@ -18,7 +19,10 @@ export default function ProductCard({ data }) {
 
   const {cartItems, setCartItems} = useContext(AppContext);
 
-  const handleCart = () => setCartItems([ ...cartItems, data]);
+  const handleCart = () => {
+    setCartItems([ ...cartItems, data]);
+    setItemLocalStorage('cart', [ ...cartItems, data]);
+  };
   
 
   return (

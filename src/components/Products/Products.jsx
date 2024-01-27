@@ -5,10 +5,12 @@ import fetchProducts from '../../API/fetchProducts';
 import ProductCard from '../ProductCard/ProductCard';
 import Loading from '../Loading/Loading';
 import AppContext from '../../context/AppContext';
+import fetchCep from '../../API/fetchCep';
+import { getItemLocalStorage} from '../../utils/setLocalStorage';
 
 export default function Products() {
 
-  const { products, setProducts, loading, setLoading} = useContext(AppContext);
+  const { products, setProducts, loading, setLoading, setCartItems} = useContext(AppContext);
   
   
   useEffect(() => {
@@ -18,6 +20,11 @@ export default function Products() {
       setLoading(false);
     });
 
+    fetchCep('23898093').then((response) => {
+      console.log(response);
+    });
+
+    setCartItems(getItemLocalStorage('cart'));
   }, []);
 
   return (
