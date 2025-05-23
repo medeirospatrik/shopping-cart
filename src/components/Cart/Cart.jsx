@@ -20,62 +20,56 @@ export default function Cart() {
   };
 
   const formatOrderMessage = () => {
-    // Cabeçalho da mensagem
-    const header = '🛒 *Novo Pedido*\n\n';
-
-    // Seção de itens com validação de quantidade
+    const header = '*🛒 Novo Pedido Realizado!*\n\n';
+  
     const items = cartItems.map((item, index) => {
-      const quantity = item.quantity || 1; // Garante que quantidade seja pelo menos 1
+      const quantity = item.quantity || 1;
       const itemSubtotal = item.price * quantity;
-      
-      return `${index + 1}. *${item.title}*\n` +
-        `   • Quantidade: ${quantity}x\n` +
-        `   • Preço unitário: ${formatCurrency(item.price, 'USD')}\n` +
-        `   • Subtotal: ${formatCurrency(itemSubtotal, 'USD')}`;
+      return `*${index + 1}. ${item.title}*\n` +
+             `- Quantidade: ${quantity}x\n` +
+             `- Unitário: ${formatCurrency(item.price, 'USD')}\n` +
+             `- Subtotal: ${formatCurrency(itemSubtotal, 'USD')}`;
     }).join('\n\n');
-
-    // Seção de totais com cálculos validados
+  
     const itemsTotal = cartItems.reduce((acc, item) => {
       const quantity = item.quantity || 1;
       return acc + (item.price * quantity);
     }, 0);
-    
-    const subtotal = `\n\n💰 *Resumo do Pedido*\nSubtotal: ${formatCurrency(itemsTotal, 'USD')}`;
-    
-    // Seção do frete
+  
+    const subtotal = `\n\n*Resumo do Pedido*\nSubtotal: ${formatCurrency(itemsTotal, 'USD')}`;
+  
     const shipping = shippingInfo && typeof shippingInfo.value === 'number'
       ? `\nFrete: ${formatCurrency(shippingInfo.value, 'USD')}`
-      : '';
-    
-    // Total final
-    const total = `\n*Total Final: ${formatCurrency(totalPrice(), 'USD')}*`;
-
-    // Informações de entrega com verificações de nulos
+      : '\nFrete: Não calculado';
+  
+    const total = `\nTotal Final: ${formatCurrency(totalPrice(), 'USD')}`;
+  
     const deliveryInfo = shippingInfo?.address
-      ? '\n\n📍 *Informações de Entrega*\n' +
+      ? '\n\n*Endereço de Entrega*\n' +
         `Cidade: ${shippingInfo.address.city || 'Não informada'}\n` +
-        `Estado: ${shippingInfo.address.state || 'Não informado'}` +
-        (shippingInfo.address.neighborhood ? `\nBairro: ${shippingInfo.address.neighborhood}` : '') +
-        (shippingInfo.deadline ? `\nPrazo: ${shippingInfo.deadline}` : '')
-      : '';
-
-    // Informações de pagamento com status
+        `Estado: ${shippingInfo.address.state || 'Não informado'}\n` +
+        (shippingInfo.address.neighborhood ? `Bairro: ${shippingInfo.address.neighborhood}\n` : '') +
+        (shippingInfo.deadline ? `Prazo estimado: ${shippingInfo.deadline}` : '')
+      : '\n\nEndereço não informado';
+  
     const paymentInfo = paymentMethod
-      ? `\n\n💳 *Forma de Pagamento*\n${paymentMethod === 'cash' ? 'Pagamento na Entrega' : 'PIX'}` +
-        `\n*Status:* ${paymentMethod === 'cash' ? '⏳ Aguardando pagamento na entrega' : '✅ Pago via PIX'}`
-      : '';
-
-    // Mensagem de agradecimento
-    const footer = '\n\n✨ Obrigado pela preferência!';
-
+      ? '\n\n*Pagamento*\n' +
+        `${paymentMethod === 'cash' ? 'Pagamento na entrega' : 'PIX'}\n` +
+        `Status: ${paymentMethod === 'cash' ? 'Aguardando pagamento' : 'Pago via PIX'}`
+      : '\n\nPagamento não informado';
+  
+    const footer = '\n\nObrigado pela preferência!';
+  
     return header + items + subtotal + shipping + total + deliveryInfo + paymentInfo + footer;
   };
+  
 
   const handleWhatsAppShare = () => {
     if (!shippingInfo || !paymentMethod) return;
-    
+  
+    const numero = '5521980248660'; // número no formato internacional
     const message = encodeURIComponent(formatOrderMessage());
-    const whatsappUrl = `https://wa.me/?text=${message}`;
+    const whatsappUrl = `https://wa.me/${numero}?text=${message}`;
     window.open(whatsappUrl, '_blank');
   };
 
