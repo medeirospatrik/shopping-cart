@@ -1,4 +1,3 @@
-import React from 'react';
 import { BiLoaderAlt } from 'react-icons/bi';
 import { motion } from 'framer-motion';
 import styles from './Loading.module.css';

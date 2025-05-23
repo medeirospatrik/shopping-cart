@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
 import ProductCard from '../ProductCard/ProductCard';
 import Loading from '../Loading/Loading';
