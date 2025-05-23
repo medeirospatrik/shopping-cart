@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.icon {
+  color: var(--primary-color);
+  width: 3rem;
+  height: 3rem;
+} 

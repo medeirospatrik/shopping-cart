@@ -1,24 +1,30 @@
-import React, { useContext } from 'react';
-
+import { useContext } from 'react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-
-import './CartButton.css';
+import { motion } from 'framer-motion';
 import AppContext from '../../context/AppContext';
-
-
+import styles from './CartButton.module.css';
 
 export default function CartButton() {
-
-  const {cartItems, isCartVisible, setIsCartVisible} = useContext(AppContext);
+  const { cartItems, isCartVisible, setIsCartVisible } = useContext(AppContext);
 
   return (
-    <button
+    <motion.button
       type="button"
-      className="cart__button"
+      className={styles.button}
       onClick={() => setIsCartVisible(!isCartVisible)}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.95 }}
     >
-      <AiOutlineShoppingCart/>
-      {cartItems.length > 0 ? <span className="cart-status">{cartItems.length}</span> : ''}
-    </button>
+      <AiOutlineShoppingCart className={styles.icon} />
+      {cartItems.length > 0 && (
+        <motion.span
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          className={styles.badge}
+        >
+          {cartItems.length}
+        </motion.span>
+      )}
+    </motion.button>
   );
 }

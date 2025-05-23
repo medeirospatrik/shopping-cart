@@ -1,0 +1,29 @@
+.button {
+  position: relative;
+  padding: 0.5rem;
+  color: var(--text-color);
+  transition: color 0.2s;
+}
+
+.button:hover {
+  color: var(--primary-color);
+}
+
+.icon {
+  font-size: 1.5rem;
+}
+
+.badge {
+  position: absolute;
+  top: -0.25rem;
+  right: -0.25rem;
+  background-color: var(--primary-color);
+  color: var(--white);
+  font-size: 0.75rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+} 

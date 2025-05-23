@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
 import { useCart } from '../hooks/useCart';
@@ -6,6 +6,9 @@ import { useProducts } from '../hooks/useProducts';
 import { useShipping } from '../hooks/useShipping';
 
 export default function AppProvider({ children }) {
+  const [paymentMethod, setPaymentMethod] = useState(null);
+  const [paymentConfirmed, setPaymentConfirmed] = useState(false);
+  
   const {
     cartItems,
     setCartItems,
@@ -30,20 +33,24 @@ export default function AppProvider({ children }) {
   } = useShipping();
 
   const values = {
-    cartItems,
-    setCartItems,
-    isCartVisible,
-    setIsCartVisible,
-    addToCart,
-    removeFromCart,
     products,
     setProducts,
+    cartItems,
+    setCartItems,
     loading,
     setLoading,
+    isCartVisible,
+    setIsCartVisible,
     loadProducts,
+    addToCart,
+    removeFromCart,
     shippingInfo,
     setShippingInfo,
-    calculateShipping
+    calculateShipping,
+    paymentMethod,
+    setPaymentMethod,
+    paymentConfirmed,
+    setPaymentConfirmed
   };
 
   return (

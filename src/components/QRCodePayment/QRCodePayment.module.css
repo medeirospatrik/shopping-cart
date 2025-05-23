@@ -1,0 +1,120 @@
+.qrCodeContainer {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  background: var(--white);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.warning {
+  color: var(--text-color);
+  background: var(--gray-light);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.qrWrapper {
+  background: var(--white);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.qrCode {
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.amount {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 1rem 0;
+}
+
+.pixInfo {
+  background: var(--gray-light);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+.pixKey {
+  font-size: 0.875rem;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+  word-break: break-all;
+}
+
+.copyButton {
+  background: var(--primary-color);
+  color: var(--white);
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.copyButton:hover {
+  background: var(--secondary-color);
+}
+
+.instructions {
+  font-size: 0.875rem;
+  color: var(--text-color);
+  margin-top: 0.5rem;
+  line-height: 1.4;
+}
+
+.confirmButton {
+  margin-top: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  width: 200px;
+  background-color: #00a650;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.confirmButton:hover {
+  background-color: #008c44;
+}
+
+.confirmedMessage {
+  margin-top: 1rem;
+  color: #00a650;
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.verificationMessage {
+  margin-top: 0.5rem;
+  color: #f5a623;
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-align: center;
+} 

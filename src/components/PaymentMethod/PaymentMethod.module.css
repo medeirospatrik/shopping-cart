@@ -1,0 +1,51 @@
+.paymentMethod {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--gray-light);
+  border-radius: 0.5rem;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--white);
+  border-radius: 0.5rem;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.option:hover {
+  border-color: var(--primary-color);
+}
+
+.option.selected {
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.icon {
+  font-size: 1.5rem;
+}
+
+.option span {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+} 

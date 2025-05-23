@@ -1,35 +1,50 @@
-import React, { useEffect, useContext} from 'react';
-
-import './Products.css';
-import fetchProducts from '../../API/fetchProducts';
+import React, { useEffect, useContext } from 'react';
+import { motion } from 'framer-motion';
 import ProductCard from '../ProductCard/ProductCard';
 import Loading from '../Loading/Loading';
 import AppContext from '../../context/AppContext';
-import fetchCep from '../../API/fetchCep';
-import { getItemLocalStorage} from '../../utils/setLocalStorage';
+import { getItemLocalStorage } from '../../utils/setLocalStorage';
+import styles from './Products.module.css';
 
 export default function Products() {
-
-  const { products, setProducts, loading, setLoading, setCartItems} = useContext(AppContext);
-  
+  const { products, loading, setCartItems, loadProducts } = useContext(AppContext);
   
   useEffect(() => {
+    const initializeProducts = async () => {
+      try {
+        const savedCart = getItemLocalStorage('cart') || [];
+        setCartItems(savedCart);
+        await loadProducts();
+      } catch (error) {
+        console.error('Error loading products:', error);
+      }
+    };
 
-    fetchProducts('iphone').then((response) => {
-      setProducts(response);
-      setLoading(false);
-    });
-
-    fetchCep('23898093').then((response) => {
-      console.log(response);
-    });
-
-    setCartItems(getItemLocalStorage('cart') || []);
+    initializeProducts();
   }, []);
 
+  if (loading) return <Loading />;
+  
+  if (!products || products.length === 0) {
+    return (
+      <div className={styles.container}>
+        <p>No products found. Please try again later.</p>
+      </div>
+    );
+  }
+
   return (
-    (loading ? <Loading /> : <section className=" products container">
-      {products.map((product) => <ProductCard key={product.id} data={product} />)}
-    </section>)
+    <motion.section 
+      className={styles.container}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className={styles.grid}>
+        {products.map((product) => (
+          <ProductCard key={product.id} data={product} />
+        ))}
+      </div>
+    </motion.section>
   );
 }

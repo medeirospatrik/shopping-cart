@@ -1,57 +1,104 @@
-import React, { useContext } from 'react';
-import propTypes from 'prop-types';
-
-import { BsCartDashFill } from 'react-icons/bs';
-import './CartItem.css';
+import { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { motion } from 'framer-motion';
 import formatCurrency from '../../utils/formatCurrency';
 import AppContext from '../../context/AppContext';
-import { setItemLocalStorage } from '../../utils/setLocalStorage';
-
+import styles from './CartItem.module.css';
 
 export default function CartItem({ data }) {
-
-  const {cartItems, setCartItems} = useContext(AppContext);
-
-  const { id ,price, title, thumbnail} = data; 
+  const { cartItems, setCartItems } = useContext(AppContext);
+  const { id, thumbnail, title, price, quantity = 1 } = data;
 
   const handleRemoveItem = () => {
-    // Encontra o índice do item no array
-    const index = cartItems.findIndex((item) => item.id === id);
+    const updatedItems = cartItems.filter((item) => item.id !== id);
+    setCartItems(updatedItems);
+  };
 
-    // Se o índice for encontrado, remova o item
-    if (index !== -1) {
-      const updatedItems = [...cartItems];
-      updatedItems.splice(index, 1);
-      setCartItems(updatedItems);
-      setItemLocalStorage('cart', updatedItems);
-    }
+  const handleQuantityChange = (newQuantity) => {
+    if (newQuantity > 50) return;
+
+    const updatedItems = cartItems.map(item => {
+      if (item.id === id) {
+        return { ...item, quantity: newQuantity };
+      }
+      return item;
+    });
+    setCartItems(updatedItems);
   };
 
   return (
-    <section className="cart-item">
-      <img
-        src={thumbnail}
-        alt="imagem do produto"
-        className="cart-item-image"
-      />
-
-      <div className="cart-item-content">
-        <h3 className="cart-item-title">{title}</h3>
-        <h3 className="cart-item-price">{formatCurrency(price)}</h3>
-
-        <button
-          type="button"
-          className="button__remove-item"
-          onClick={ handleRemoveItem }
-        >
-          <BsCartDashFill />
-        </button>
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      className={styles.item}
+    >
+      <div className={styles.imageContainer}>
+        <img
+          src={thumbnail.replace(/\w\.jpg/gi, 'W.jpg')}
+          alt={title}
+          className={styles.image}
+        />
       </div>
 
-    </section>
+      <div className={styles.content}>
+        <div className={styles.info}>
+          <h3 className={styles.title}>
+            {title}
+          </h3>
+          <div className={styles.priceQuantity}>
+            <p className={styles.price}>
+              {formatCurrency(price, 'USD')}
+            </p>
+            <div className={styles.quantityControls}>
+              <button
+                type="button"
+                className={styles.quantityButton}
+                onClick={() => handleQuantityChange(quantity - 1)}
+                disabled={quantity <= 1}
+              >
+                −
+              </button>
+              
+              <input
+                type="number"
+                min="1"
+                max="50"
+                value={quantity}
+                onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
+                className={styles.quantityInput}
+              />
+              
+              <button
+                type="button"
+                className={styles.quantityButton}
+                onClick={() => handleQuantityChange(quantity + 1)}
+                disabled={quantity >= 50}
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <button
+            type="button"
+            className={styles.removeButton}
+            onClick={handleRemoveItem}
+          >
+            Excluir
+          </button>
+        </div>
+      </div>
+    </motion.div>
   );
 }
 
 CartItem.propTypes = {
-  data: propTypes.shape({})
-}.isRequired;
+  data: PropTypes.shape({
+    id: PropTypes.string,
+    thumbnail: PropTypes.string,
+    title: PropTypes.string,
+    price: PropTypes.number,
+    quantity: PropTypes.number,
+  }).isRequired,
+};

@@ -1,43 +1,48 @@
-import React, { useContext, useState } from 'react';
+import  { useContext, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
-
-import './SearchBar.css';
-import fetchProducts from '../../API/fetchProducts';
+import { motion } from 'framer-motion';
 import AppContext from '../../context/AppContext';
 
 export default function SearchBar() {
-
   const [searchValue, setSearchValue] = useState('');
-
-  const {setProducts, setLoading} = useContext(AppContext);
-
-  const { name } = useContext(AppContext);
+  const { loadProducts } = useContext(AppContext);
 
   const handleSearch = async (event) => {
     event.preventDefault();
-    setLoading(true);
-    const products = await fetchProducts(searchValue);
+    if (!searchValue.trim()) return;
 
-    setProducts(products);
-    setLoading(false);
-    setSearchValue('');
+    try {
+      await loadProducts(searchValue);
+    } catch (error) {
+      console.error('Error searching products:', error);
+    } finally {
+      setSearchValue('');
+    }
   };
 
   return (
-    <form className="search-bar" onSubmit={handleSearch}>
-      {name}
-      <input
-        value={searchValue}
-        type="search"
-        placeholder="Buscar produtos"
-        className="search__input"
-        onChange={({ target }) => setSearchValue(target.value)}
-        required
-      />
-      <button type="submit" className="search__button">
-        <BsSearch/>
-      </button>
-
+    <form 
+      className="relative"
+      onSubmit={handleSearch}
+    >
+      <div className="relative">
+        <input
+          value={searchValue}
+          type="search"
+          placeholder="Buscar produtos"
+          className="w-full py-2 pl-4 pr-14 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all duration-200"
+          onChange={({ target }) => setSearchValue(target.value)}
+          required
+        />
+        <motion.button
+          type="submit"
+          className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-gray-600 hover:text-primary transition-colors duration-200"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <BsSearch />
+        </motion.button>
+      </div>
     </form>
   );
 }

@@ -1,0 +1,121 @@
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--white);
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.imageContainer {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.title {
+  font-size: 0.875rem;
+  color: var(--text-color);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.priceQuantity {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.quantityControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quantityButton {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #e5e5e5;
+  background: white;
+  color: #333;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.quantityButton:hover:not(:disabled) {
+  border-color: #3483fa;
+  color: #3483fa;
+}
+
+.quantityButton:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.quantityInput {
+  width: 40px;
+  height: 32px;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+  -moz-appearance: textfield;
+}
+
+.quantityInput::-webkit-outer-spin-button,
+.quantityInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.removeButton {
+  background: none;
+  border: none;
+  color: #3483fa;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.875rem;
+  transition: color 0.2s;
+  text-align: left;
+  width: fit-content;
+}
+
+.removeButton:hover {
+  color: #2968c8;
+  text-decoration: underline;
+} 

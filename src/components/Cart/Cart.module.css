@@ -1,0 +1,138 @@
+.cart {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  background: var(--white);
+  padding: 2rem;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.closeButton:hover {
+  color: var(--primary-color);
+}
+
+.items {
+  flex: 1;
+  overflow-y: auto;
+  margin: 1rem -1rem;
+  padding: 1rem;
+}
+
+.items::-webkit-scrollbar {
+  width: 6px;
+}
+
+.items::-webkit-scrollbar-track {
+  background: var(--gray-light);
+}
+
+.items::-webkit-scrollbar-thumb {
+  background: var(--gray-medium);
+  border-radius: 3px;
+}
+
+.emptyMessage {
+  text-align: center;
+  color: var(--text-color);
+  margin-top: 2rem;
+}
+
+.footer {
+  border-top: 1px solid var(--gray-light);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+.total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.totalLabel {
+  font-size: 1.1rem;
+  color: var(--text-color);
+}
+
+.totalValue {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.checkoutButton {
+  width: 100%;
+  padding: 1rem;
+  background: var(--primary-color);
+  color: var(--white);
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.checkoutButton:hover {
+  background: var(--secondary-color);
+}
+
+.whatsappButton {
+  width: 100%;
+  padding: 1rem;
+  background: #25D366;
+  color: var(--white);
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.whatsappButton:hover:not(.disabled) {
+  background: #128C7E;
+}
+
+.whatsappButton.disabled {
+  background: var(--gray-medium);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.whatsappButton svg {
+  font-size: 1.25rem;
+} 
